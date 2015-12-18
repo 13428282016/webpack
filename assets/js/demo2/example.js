@@ -18,7 +18,7 @@
      如果是amd 模式的 话 c加载完成并且执行完成后才会调用callback
 
      王名杰 2015/12/17 18:07:24
-     这里的ensure 就是比amd 多了个 callback-demand
+     这里的ensure 就是比amd 多了个 callback-demand，并且ensure的模块是同步加载的，amd是异步的
 
 
      */
