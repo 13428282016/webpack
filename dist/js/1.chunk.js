@@ -1,1 +1,0 @@
-webpackJsonp([1,8],{4:function(o,n){console.log("c")},5:function(o,n){console.log("d")}});

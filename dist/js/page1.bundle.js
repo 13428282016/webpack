@@ -1,1 +1,0 @@
-webpackJsonp([6,8],{0:function(n,o,t){n.exports=t(12)},12:function(n,o,t){var c=t(13).increment;console.log(c(10))},13:function(n,o,t){var c=t(14).add;o.increment=function(n){return c(n,1)}},14:function(n,o){o.add=function(n,o){return n+o}}});
