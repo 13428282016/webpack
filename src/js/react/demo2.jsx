@@ -11,7 +11,7 @@ var CommentBox=React.createClass({
        return (
          <div className="commentBox">
 
-               Hello,world! I tam a ComentBox
+               Hello,eeeeeeeworld! I t8888am66654654666 dsd8676456588666465465465466664656456666456564568678678a ComentBox
          </div>
 
        );
