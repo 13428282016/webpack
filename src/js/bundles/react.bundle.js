@@ -5,7 +5,10 @@ webpackJsonp([7,9],[
 	__webpack_require__(22);
 	__webpack_require__(181);
 	__webpack_require__(182);
-	module.exports = __webpack_require__(183);
+	__webpack_require__(183);
+	__webpack_require__(184);
+	__webpack_require__(185);
+	module.exports = __webpack_require__(186);
 
 
 /***/ },
@@ -28917,12 +28920,32 @@ webpackJsonp([7,9],[
 	            this.setState({ data: data });
 	        }).bind(this));
 	    },
+	    handleCommentSubmit: function handleCommentSubmit(comment) {
 
+	        var $ = __webpack_require__(3);
+	        var comments = this.state.data;
+	        comment.id = Date.now();
+	        var newComments = comments.concat([comment]);
+	        this.setState({ data: newComments });
+	        $.ajax({
+	            url: this.props.url,
+	            dataType: 'json',
+	            type: 'POST',
+	            data: comment,
+	            success: (function (data) {
+	                //this.setState({data:data});
+	            }).bind(this),
+	            error: (function (xhr, status, err) {
+	                this.setState({ data: comments });
+	                console.error(this.props.url, status, err.toString());
+	            }).bind(this)
+	        });
+	    },
 	    componentDidMount: function componentDidMount() {
 
 	        this.loadData();
 
-	        setInterval(this.loadData, this.props.interval);
+	        //setInterval(this.loadData,this.props.interval);   //setInterval(this.loadData,this.props.interval);
 	    },
 
 	    render: function render() {
@@ -28936,7 +28959,7 @@ webpackJsonp([7,9],[
 	                ' Comments '
 	            ),
 	            React.createElement(CommentList, { data: this.state.data }),
-	            React.createElement(CommentForm, null)
+	            React.createElement(CommentForm, { handleCommentSubmit: this.handleCommentSubmit })
 	        );
 	    }
 
@@ -28966,13 +28989,36 @@ webpackJsonp([7,9],[
 	var CommentForm = React.createClass({
 	    displayName: 'CommentForm',
 
+	    getInitialState: function getInitialState() {
+
+	        return { author: '', text: '' };
+	    },
+	    handleAuthorChange: function handleAuthorChange(e) {
+
+	        this.setState({ author: e.target.value });
+	    },
+	    handleTextChange: function handleTextChange(e) {
+	        this.setState({ text: e.target.value });
+	    },
+	    handleSubmit: function handleSubmit(e) {
+	        e.preventDefault();
+	        var author = this.state.author.trim();
+	        var text = this.state.text.trim();
+	        if (!text || !author) {
+	            return;
+	        }
+
+	        this.props.handleCommentSubmit({ author: author, text: text });
+	        this.setState({ author: '', text: '' });
+	    },
 	    render: function render() {
 
 	        return React.createElement(
-	            'div',
-	            { className: 'commentForm' },
-	            React.createElement('textarea', null),
-	            React.createElement('button', null)
+	            'form',
+	            { className: 'commentForm', onSubmit: this.handleSubmit },
+	            React.createElement('input', { type: 'text', placeholder: 'Your name', onChange: this.handleAuthorChange }),
+	            React.createElement('input', { type: 'text', placeholder: 'Say something...', onChange: this.handleTextChange }),
+	            React.createElement('input', { type: 'submit', value: 'Post' })
 	        );
 	    }
 
@@ -28998,6 +29044,250 @@ webpackJsonp([7,9],[
 	});
 
 	ReactDOM.render(React.createElement(CommentBox /*data={data}*/, { url: 'http://localhost:63343/react/data/comments.json', interval: '500' }), document.getElementById('comment_box'));
+
+/***/ },
+/* 184 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * Created by wmj on 2015/12/21.
+	 */
+
+	var React = __webpack_require__(23);
+	var ReactDOM = __webpack_require__(180);
+	var data = [{ category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football" }, { category: "Sporting Goods", price: "$9.99", stocked: true, name: "Baseball" }, { category: "Sporting Goods", price: "$29.99", stocked: false, name: "Basketball" }, { category: "Electronics", price: "$99.99", stocked: true, name: "iPod Touch" }, { category: "Electronics", price: "$399.99", stocked: false, name: "iPhone 5" }, { category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7" }];
+
+	var ProductCategoryRow = React.createClass({
+	    displayName: 'ProductCategoryRow',
+
+	    render: function render() {
+
+	        return React.createElement(
+	            'tr',
+	            null,
+	            React.createElement(
+	                'th',
+	                { colSpan: '2' },
+	                this.props.category
+	            )
+	        );
+	    }
+
+	});
+
+	var ProductRow = React.createClass({
+	    displayName: 'ProductRow',
+
+	    render: function render() {
+
+	        var name = this.props.product.stocked ? this.props.product.name : React.createElement(
+	            'span',
+	            { style: { color: 'red' } },
+	            this.props.product.name
+	        );
+
+	        return React.createElement(
+	            'tr',
+	            null,
+	            React.createElement(
+	                'td',
+	                null,
+	                name
+	            ),
+	            React.createElement(
+	                'td',
+	                null,
+	                this.props.product.price
+	            )
+	        );
+	    }
+
+	});
+
+	var ProductTable = React.createClass({
+	    displayName: 'ProductTable',
+
+	    render: function render() {
+	        var rows = [];
+	        var lastCategory = null;
+	        this.props.products.forEach((function (product) {
+
+	            if (product.name.indexOf(this.props.filterText) === -1 || !product.stocked && this.props.inStockOnly) {
+	                return;
+	            }
+	            if (product.category !== lastCategory) {
+	                rows.push(React.createElement(ProductCategoryRow, { category: product.category, key: product.category }));
+	            }
+	            rows.push(React.createElement(ProductRow, { product: product, key: product.name }));
+	            lastCategory = product.category;
+	        }).bind(this));
+	        return React.createElement(
+	            'table',
+	            null,
+	            React.createElement(
+	                'thead',
+	                null,
+	                React.createElement(
+	                    'tr',
+	                    null,
+	                    React.createElement(
+	                        'th',
+	                        null,
+	                        'Name'
+	                    ),
+	                    React.createElement(
+	                        'th',
+	                        null,
+	                        'Price'
+	                    )
+	                )
+	            ),
+	            React.createElement(
+	                'tbody',
+	                null,
+	                rows
+	            )
+	        );
+	    }
+
+	});
+
+	var SearchBar = React.createClass({
+	    displayName: 'SearchBar',
+
+	    handleChange: function handleChange() {
+
+	        this.props.onUserInput(this.refs.filterTextInput.value, this.refs.inStockOnlyInput.checked);
+	    },
+	    render: function render() {
+
+	        return React.createElement(
+	            'form',
+	            null,
+	            React.createElement('input', { type: 'text', placeholder: 'Search...', value: this.props.filterText, onChange: this.handleChange,
+	                ref: 'filterTextInput' }),
+	            React.createElement(
+	                'p',
+	                null,
+	                React.createElement('input', { type: 'checkbox', checked: this.props.inStockOnly, onChange: this.handleChange,
+	                    ref: 'inStockOnlyInput' }),
+	                ' ',
+	                'Only show products in stokc'
+	            )
+	        );
+	    }
+
+	});
+
+	var FilterableProductTable = React.createClass({
+	    displayName: 'FilterableProductTable',
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            filterText: '',
+	            isStockOnly: false
+
+	        };
+	    },
+	    handleUserInput: function handleUserInput(filterText, inStockOnly) {
+	        this.setState({
+	            filterText: filterText,
+	            inStockOnly: inStockOnly
+	        });
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'div',
+	            null,
+	            React.createElement(SearchBar, { filterText: this.state.filterText,
+	                inStockOnly: this.state.inStockOnly, onUserInput: this.handleUserInput }),
+	            React.createElement(ProductTable, { products: this.props.products, filterText: this.state.filterText,
+	                inStockOnly: this.state.inStockOnly })
+	        );
+	    }
+
+	});
+
+	ReactDOM.render(React.createElement(FilterableProductTable, { products: data }), document.getElementById('products'));
+
+/***/ },
+/* 185 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(23);
+	var ReactDOM = __webpack_require__(180);
+
+	var CheckLink = React.createClass({
+	    displayName: 'CheckLink',
+
+	    render: function render() {
+
+	        return React.createElement(
+	            'a',
+	            this.props,
+	            '√ ',
+	            ' ',
+	            this.props.children
+	        );
+	    }
+
+	});
+
+	ReactDOM.render(React.createElement(
+	    CheckLink,
+	    { href: '/checked.html' },
+	    'Click here!'
+	), document.getElementById('demo1'));
+
+/***/ },
+/* 186 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+	var React = __webpack_require__(23);
+	var ReactDOM = __webpack_require__(180);
+
+	var CheckLink = React.createClass({
+	    displayName: 'CheckLink',
+
+	    render: function render() {
+	        var _x$y$a$b = { x: 1, y: 2, a: 3, b: 4 };
+	        var x = _x$y$a$b.x;
+	        var y = _x$y$a$b.y;
+
+	        var z = _objectWithoutProperties(_x$y$a$b, ['x', 'y']);
+
+	        var _props = this.props;
+	        var checked = _props.checked;
+	        var title = _props.title;
+
+	        var other = _objectWithoutProperties(_props, ['checked', 'title']);
+
+	        return React.createElement(
+	            'a',
+	            _extends({}, other, { title: title }),
+	            '√ ',
+	            ' ',
+	            this.props.children
+	        );
+	    }
+
+	});
+
+	ReactDOM.render(React.createElement(
+	    CheckLink,
+	    { href: '/checked.html', title: '432423432' },
+	    'Click here!'
+	), document.getElementById('demo2'));
 
 /***/ }
 ]);
