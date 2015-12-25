@@ -6,8 +6,8 @@ var path = require("path");
 var webpack = require("webpack");
 module.exports={
     context:path.join(__dirname, 'src/js'),//根目录
-    entry:{html:['../../demo1.html','../../react1.html'],page1:['./example.js'],page2:['./demo1.js'],demo2:['./demo2/example.js'],demo3a:['./demo3/a.js'],demo3b:['./demo3/b.js'],
-    demo3g:['./demo3/e.js','./demo3/f.js'],vendor:['jquery'],react:['./react/demo1.jsx','./react/demo2.jsx','./react/demo3.jsx','./react/demo4.jsx','./react/demo5.jsx','./react/demo6.jsx','./react/demo7.jsx']},
+    entry:{page1:['./example.js'],page2:['./demo1.js'],demo2:['./demo2/example.js'],demo3a:['./demo3/a.js'],demo3b:['./demo3/b.js'],
+    demo3g:['./demo3/e.js','./demo3/f.js'],vendor:['jquery'],react:['./react/demo1.jsx','./react/demo2.jsx','./react/demo3.jsx','./react/demo4.jsx','./react/demo5.jsx','./react/demo6.jsx','./react/demo7.jsx','./react/demo8.jsx']},
     output:{
         path:path.join(__dirname,'src/js/bundles'),
         filename:'[name].bundle.js',//同步加载的文件都被打包到bundel
