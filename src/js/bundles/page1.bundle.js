@@ -3,22 +3,8 @@ webpackJsonp([5,9],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(13);
+	module.exports = __webpack_require__(14);
 
-
-/***/ },
-
-/***/ 13:
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Created by wmj on 2015/12/17.
-	 */
-
-
-	var inc =__webpack_require__(14).increment;
-
-	console.log(inc(10));
 
 /***/ },
 
@@ -28,7 +14,21 @@ webpackJsonp([5,9],{
 	/**
 	 * Created by wmj on 2015/12/17.
 	 */
-	var add = __webpack_require__(15).add;
+
+
+	var inc =__webpack_require__(15).increment;
+
+	console.log(inc(10));
+
+/***/ },
+
+/***/ 15:
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by wmj on 2015/12/17.
+	 */
+	var add = __webpack_require__(16).add;
 	exports.increment=function(val){
 
 	  return add(val,1);
@@ -37,7 +37,7 @@ webpackJsonp([5,9],{
 
 /***/ },
 
-/***/ 15:
+/***/ 16:
 /***/ function(module, exports) {
 
 	/**

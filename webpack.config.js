@@ -12,13 +12,23 @@ module.exports={
         path:path.join(__dirname,'src/js/bundles'),
         filename:'[name].bundle.js',//同步加载的文件都被打包到bundel
         chunkFilename:'[id].chunk.js',//异步加载的文件都会被放到chunk,“chunks” which are loaded on demand.
-        publicPath: 'http://localhost:8080/'//指定发布路径，也就是说异步加载的文件都会以这个路径为基础请求,可使用webpack-dev-server --content-base dist/js 指定到发布目录
+        publicPath: 'http://localhost:8080/',//指定发布路径，也就是说异步加载的文件都会以这个路径为基础请求,可使用webpack-dev-server --content-base dist/js 指定到发布目录
+        sourceMapFilename:'[name].map'
     },
-    resolve:['.js','.jsx'],
+    resolve: {
+        // 现在可以写 require('file') 代替 require('file.coffee')
+        extensions: ['', '.js', '.json', '.coffee','.jsx']
+    },
     module:{
         loaders:[
-            {test:/\.jsx$/,loader:'react-hot!babel?presets[]=react,presets[]=es2015'},//所有css文件都会经过css 和style 加载器处理 ，主页顺序是倒序先css后style
-            {test:/\.css$/,loader:'style!css'},//所有css文件都会经过css 和style 加载器处理 ，主页顺序是倒序先css后style
+            //exclude 排除某些文件 ，include额外包括除了output.path指定的一些文件
+            {test:/\.jsx$/,loader:'react-hot!babel?presets[]=react,presets[]=es2015',exclude:'node_modules',include:''},//所有css文件都会经过css 和style 加载器处理 ，主页顺序是倒序先css后style
+            //{test:/\.css$/,loader:'style!css'},//所有css文件都会经过css 和style 加载器处理 ，主页顺序是倒序先css后style
+            {test:/\.css$/,loaders:['style','css']},
+            {test: require.resolve('jquery'), loader: 'expose?jQuery'},//require.resolve('jquery')返回jquery的绝对路径
+            {test:'d:/git/jquery.js',loader:'expose?jQuery'}
+
+
         ]
     },
     plugins: [

@@ -2,13 +2,20 @@ webpackJsonp([6,9],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(16);
+	module.exports = __webpack_require__(17);
 
 
 /***/ },
 /* 1 */,
 /* 2 */,
 /* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["jQuery"] = __webpack_require__(4);
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -9224,7 +9231,6 @@ webpackJsonp([6,9],[
 
 
 /***/ },
-/* 4 */,
 /* 5 */,
 /* 6 */,
 /* 7 */,
@@ -9236,7 +9242,8 @@ webpackJsonp([6,9],[
 /* 13 */,
 /* 14 */,
 /* 15 */,
-/* 16 */
+/* 16 */,
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -9245,9 +9252,9 @@ webpackJsonp([6,9],[
 	 */
 
 	//require('!style!css!../css/style.css');
-	__webpack_require__(17);
+	__webpack_require__(18);
 	var $ = __webpack_require__(3);
-	document.write(__webpack_require__(21));
+	document.write(__webpack_require__(22));
 	console.log(1);
 	console.log(1);
 	console.log(1);
@@ -9258,16 +9265,16 @@ webpackJsonp([6,9],[
 
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(18);
+	var content = __webpack_require__(19);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(20)(content, {});
+	var update = __webpack_require__(21)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -9284,10 +9291,10 @@ webpackJsonp([6,9],[
 	}
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(19)();
+	exports = module.exports = __webpack_require__(20)();
 	// imports
 
 
@@ -9298,7 +9305,7 @@ webpackJsonp([6,9],[
 
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports) {
 
 	/*
@@ -9354,7 +9361,7 @@ webpackJsonp([6,9],[
 
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -9608,7 +9615,7 @@ webpackJsonp([6,9],[
 
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports) {
 
 	/**

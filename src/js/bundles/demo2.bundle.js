@@ -34,11 +34,11 @@ webpackJsonp([0,9],[
 
 	     */
 	var a =__webpack_require__(2);
-	var b= __webpack_require__(4);
+	var b= __webpack_require__(5);
 	__webpack_require__.e/* nsure */(1, function(require){
 
-	    __webpack_require__(4);
-	    __webpack_require__(6);
+	    __webpack_require__(5);
+	    __webpack_require__(7);
 
 
 	});
@@ -55,6 +55,13 @@ webpackJsonp([0,9],[
 
 /***/ },
 /* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["jQuery"] = __webpack_require__(4);
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -9270,7 +9277,7 @@ webpackJsonp([0,9],[
 
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**

@@ -4,6 +4,10 @@ var data = [
     {id: 1, author: "Pete Hunt", text: "This is one comment"},
     {id: 2, author: "Jordan Walke", text: "This is *another* comment"}
 ];
+
+
+var $=require('jquery');
+var Bootstrap=require('bootstrap');
 var CommentBox = React.createClass({
 
     getInitialState:function(){
@@ -12,9 +16,10 @@ var CommentBox = React.createClass({
     },
     loadData:function(){
 
-      var $=  require('jquery');
+
       $.getJSON(this.props.url,function(data){
 
+          console.log(data);
           this.setState({data:data});
       }.bind(this))
 
@@ -88,6 +93,7 @@ var CommentList = React.createClass({
             );
 
         });
+        console.log(this.props.data,commentNodes);
         return (
 
             < div className="commentList">
