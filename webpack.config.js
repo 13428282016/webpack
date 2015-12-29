@@ -7,7 +7,7 @@ var webpack = require("webpack");
 module.exports={
     context:path.join(__dirname, 'src/js'),//根目录
     entry:{page1:['./example.js'],page2:['./demo1.js'],demo2:['./demo2/example.js'],demo3a:['./demo3/a.js'],demo3b:['./demo3/b.js'],
-    demo3g:['./demo3/e.js','./demo3/f.js'],vendor:['jquery'],react:['./react/demo1.jsx','./react/demo2.jsx','./react/demo3.jsx','./react/demo4.jsx','./react/demo5.jsx','./react/demo6.jsx','./react/demo7.jsx','./react/demo8.jsx']},
+    demo3g:['./demo3/e.js','./demo3/f.js'],demo5:['./demo5/a.js','./demo5/b.js','./demo5/c.js','./demo5/d.js','./demo5/e.js'],vendor:['jquery'],react:['./react/demo1.jsx','./react/demo2.jsx','./react/demo3.jsx','./react/demo4.jsx','./react/demo5.jsx','./react/demo6.jsx','./react/demo7.jsx','./react/demo8.jsx']},
     output:{
         path:path.join(__dirname,'src/js/bundles'),
         filename:'[name].bundle.js',//同步加载的文件都被打包到bundel
@@ -17,8 +17,11 @@ module.exports={
     },
     resolve: {
         // 现在可以写 require('file') 代替 require('file.coffee')
-        extensions: ['', '.js', '.json', '.coffee','.jsx']
+        extensions: ['', '.js', '.json', '.coffee','.jsx'],
+        alias:{path:'dir'},//require('path/a.js')=>require('dir/a.js')
+
     },
+
     module:{
         loaders:[
             //exclude 排除某些文件 ，include额外包括除了output.path指定的一些文件
@@ -38,6 +41,11 @@ module.exports={
         new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000}),//限定每个chunk的小字节
       //  new webpack.optimize.CommonsChunkPlugin("common1.js",['demo3g','demo3a','./example.js']),//可以指定那个js需要合并
       // new webpack.optimize.CommonsChunkPlugin("vendor", "commons.js")//所有引用属于vendor选项包含的js，这些js都会从他们的chunk或bundle移除，并合并到一个新的chunk，注意加载的时候要先加载这个chunk
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery",
+            "window.jQuery": "jquery"
+        }),//所有模块都会引入jquery 即 $=jQuery=require('jquery');
 
     ]
 };

@@ -22,7 +22,7 @@ module.exports={
 
     external:{
 
-        'jquery':"jQuery"//外部变了导入 ，即在文件里 require('jquery') ===global.jQuery;
+        'jquery':"jQuery"//如果不是使用webpack导入的话，可以同external指定本插件的依赖  require（‘jquery’）等价于  window.jQuery
     }
 
 
